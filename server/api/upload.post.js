@@ -70,7 +70,9 @@ export default defineEventHandler(async (event) => {
 
     await Promise.all(s3Uploads);
 
-    return getUploadedFileDetails(uploadedFiles);
+    return {
+      uploadedFilesList: getUploadedFileDetails(uploadedFiles)
+    }
   } catch (error) {
     throw createError({
       statusCode: 500,
