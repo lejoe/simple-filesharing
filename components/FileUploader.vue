@@ -11,11 +11,13 @@ const uploadFile = async (evt) => {
       throw new Error('You must select an image to upload.')
     }
 
-    console.log(files.value);
     const formData = new FormData();
     Array.from(files.value).map((file, index) => formData.append(index, file));
 
-    // TODO: Upload files
+    const data = await $fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
     
   } catch (error) {
     alert(error.message)
