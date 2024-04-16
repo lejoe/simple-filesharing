@@ -2,4 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/supabase'],
+  runtimeConfig: {
+    s3Url: '',
+    s3Bucket: '',
+    s3AccessKey: '',
+    s3SecretKey: '',
+    s3Region: '',
+  },
 })

@@ -3,28 +3,18 @@ import { PassThrough } from "stream";
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 
-const { S3_URL, S3_ACCESS_KEY, S3_SECRET_KEY, S3_REGION, S3_BUCKET } =
-  process.env;
-const s3Client = new S3Client({
-  endpoint: S3_URL,
-  credentials: {
-    accessKeyId: S3_ACCESS_KEY,
-    secretAccessKey: S3_SECRET_KEY,
-  },
-  region: S3_REGION,
-});
 const UPLOADFOLDER = "";
 const MAX_FILESIZE = 1024 * 1024 * 10; // 10 MB
 const MAX_FILES = 10;
 
 // Uploads file to S3 and updates it's filename with the full new location
-function uploadFileToS3(file, s3Uploads, s3Client) {
+function uploadFileToS3(file, s3Uploads, s3Client, s3Bucket) {
   const body = new PassThrough();
   const newFilename = UPLOADFOLDER + file.originalFilename;
   const upload = new Upload({
     client: s3Client,
     params: {
-      Bucket: S3_BUCKET,
+      Bucket: s3Bucket,
       Key: newFilename,
       ContentType: file.mimetype ?? undefined,
       Body: body,
@@ -58,6 +48,15 @@ function getUploadedFileDetails(uploadedFiles) {
 
 export default defineEventHandler(async (event) => {
   const s3Uploads = [];
+  const { s3Url, s3AccessKey, s3SecretKey, s3Region, s3Bucket } = useRuntimeConfig(event)
+  const s3Client = new S3Client({
+    endpoint: s3Url,
+    credentials: {
+      accessKeyId: s3AccessKey,
+      secretAccessKey: s3SecretKey,
+    },
+    region: s3Region,
+  });
 
   try {
     // process each files using formidable
@@ -66,7 +65,7 @@ export default defineEventHandler(async (event) => {
       maxFileSize: MAX_FILESIZE,
       maxTotalFileSize: MAX_FILES * MAX_FILESIZE,
       fileWriteStreamHandler: (file) =>
-        uploadFileToS3(file, s3Uploads, s3Client),
+        uploadFileToS3(file, s3Uploads, s3Client, s3Bucket),
     });
 
     await Promise.all(s3Uploads);
