@@ -1,4 +1,5 @@
 import { readFiles } from "h3-formidable";
+import { defineEventHandler } from "h3";
 import { PassThrough } from "stream";
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";

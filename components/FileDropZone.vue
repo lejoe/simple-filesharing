@@ -1,14 +1,18 @@
 <script setup>
 const activeDrag = ref(false);
 const fileInputEl = ref(null)
-const props = defineProps(["uploading"]);
+const props = defineProps({
+  uploading: {
+    type: Boolean,
+  },
+});
 const emit = defineEmits(["onFilesDropped", "onFilesSelected"]);
 
-const startDrag = (evt) => {
+const startDrag = () => {
   activeDrag.value = true;
 };
 
-const leaveDrag = (evt) => {
+const leaveDrag = () => {
   activeDrag.value = false;
 };
 
@@ -33,10 +37,6 @@ const handleDrop = (evt) => {
   <div>
     <div class="flex items-center justify-center">
       <label
-        @drop.prevent="handleDrop"
-        @dragenter="startDrag"
-        @dragover.prevent="() => {}"
-        @dragleave="leaveDrag"
         for="dropzone-files"
         :class="[
           'flex flex-col items-center justify-center w-full h-48  border border-dashed rounded-lg cursor-pointer border-gray-300',
@@ -45,26 +45,30 @@ const handleDrop = (evt) => {
             'bg-stone-900  ': !activeDrag,
           },
         ]"
+        @drop.prevent="handleDrop"
+        @dragenter="startDrag"
+        @dragover.prevent="() => {}"
+        @dragleave="leaveDrag"
       >
         <div
           class="flex flex-col items-center justify-center pt-5 pb-6 text-sm"
         >
           <span
             class="i-[mdi--cloud-upload-outline] min-h-10 min-w-10 flex items-center"
-          ></span>
+          />
           <p class="pointer-events-none">
             {{ props.uploading ? "Uploading ..." : "Drag and drop" }}
           </p>
           <p class="pointer-events-none my-3">— Or —</p>
-          <button @click="openFileSelector" class="border-slate-300 border hover:bg-stone-700 py-2 px-4 rounded cursor cursor-pointer disabled:opacity-50">Select files</button>
+          <button class="border-slate-300 border hover:bg-stone-700 py-2 px-4 rounded cursor cursor-pointer disabled:opacity-50" @click="openFileSelector">Select files</button>
           <input
-            ref="fileInputEl"
             id="dropzone-files"
+            ref="fileInputEl"
             type="file"
-            @change="handleFilesSelected"
             multiple
             class="hidden"
-          />
+            @change="handleFilesSelected"
+          >
         </div>
       </label>
     </div>

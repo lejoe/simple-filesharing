@@ -2,7 +2,7 @@
 const uploading = ref(false);
 const uploadedFiles = ref([]);
 
-const shareFiles = async (evt) => {
+const shareFiles = async () => {
   // TODO: add logic to save uploaded files and create a link
 };
 
@@ -42,19 +42,19 @@ const uploadFile = async (newFiles) => {
 
 <template>
   <form
-    @submit.prevent="shareFiles"
     class="max-w-xl px-8 py-10 bg-stone-900 shadow-md mx-auto text-slate-200 relative rounded-lg"
+    @submit.prevent="shareFiles"
   >
     <h1 class="text-lg mb-8 font-black">SIMPLE FILE SHARING</h1>
 
     <FileDropZone
       :uploading="uploading"
-      @onFilesDropped="uploadFile"
-      @onFilesSelected="uploadFile"
       class="w-full mb-8"
+      @on-files-dropped="uploadFile"
+      @on-files-selected="uploadFile"
     />
 
-    <FileList :fileList="uploadedFiles" class="w-full mb-8"/>
+    <FileList :file-list="uploadedFiles" class="w-full mb-8"/>
 
     <div class="w-full mt-3 gap-1 flex flex-col">
       <input
@@ -62,7 +62,7 @@ const uploadFile = async (newFiles) => {
         class="bg-pink-700 enabled:hover:bg-pink-500 text-slate-100 enabled:hover:text-slate-100 font-bold py-2 px-4 rounded cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
         :value="uploading ? 'Uploading ...' : 'Share files'"
         :disabled="uploading || uploadedFiles.length == 0"
-      />
+      >
     </div>
   </form>
 </template>
