@@ -1,30 +1,30 @@
 <script setup>
 const uploading = ref(false);
-const files = ref();
 const uploadedFiles = ref([]);
 
 const shareFiles = async (evt) => {
-  // TODO add logic to save uploaded files and create a link
+  // TODO: add logic to save uploaded files and create a link
 };
 
-const uploadFile = async (evt) => {
-  files.value = evt.target.files;
+const uploadFile = async (newFiles) => {
+  const filesToUpload = newFiles;
+
   try {
     uploading.value = true;
 
-    if (!files.value || files.value.length === 0) {
+    if (!filesToUpload || filesToUpload.length === 0) {
       throw new Error("You must select an image to upload.");
     }
 
     const formData = new FormData();
-    Array.from(files.value).map((file, index) => formData.append(index, file));
+    [...filesToUpload].forEach((file, index) => formData.append(index, file));
 
-    const data = await fetch("/api/upload", {
+    const data = await $fetch("/api/upload", {
       method: "POST",
       body: formData,
     });
 
-    const { uploadedFilesList } = await data.json();
+    const { uploadedFilesList } = data;
 
     if (Array.isArray(uploadedFilesList) && uploadedFilesList.length > 0) {
       uploadedFilesList.forEach((file) => {
@@ -32,32 +32,35 @@ const uploadFile = async (evt) => {
       });
     }
   } catch (error) {
-    // TODO: Handle error
+    // TODO: Replace alert with a more user-friendly error handling
     alert(error.message);
   } finally {
-    evt.target.value = "";
-    files.value = {};
     uploading.value = false;
   }
 };
 </script>
 
 <template>
-  <form @submit.prevent="shareFiles">
-    <div>
-      <label for="file">
-        {{ uploading ? "Uploading ..." : "Drag and drop: " }}
-        <input id="file" type="file" @change="uploadFile" multiple />
-      </label>
-      <div>
-        <div v-for="(file, index) in uploadedFiles">
-          <input v-model="file.location" :key="index" />
-        </div>
-      </div>
+  <form
+    @submit.prevent="shareFiles"
+    class="max-w-xl p-6 bg-stone-900 shadow-md mx-auto text-slate-200 relative rounded-lg"
+  >
+    <h1 class="text-lg mb-6 font-black">SIMPLE FILE SHARING</h1>
+
+    <FileDropZone
+      :uploading="uploading"
+      @onFilesDropped="uploadFile"
+      @onFilesSelected="uploadFile"
+    />
+
+    <FileList :fileList="uploadedFiles" />
+
+    <div class="w-full mt-3 gap-1 flex flex-col">
       <input
         type="submit"
+        class="bg-pink-700 hover:bg-pink-500 text-slate-100 hover:text-slate-100 font-bold py-2 px-4 rounded cursor-pointer disabled:opacity-50"
         :value="uploading ? 'Uploading ...' : 'Share files'"
-        :disabled="uploading"
+        :disabled="uploading || uploadedFiles.length == 0"
       />
     </div>
   </form>
