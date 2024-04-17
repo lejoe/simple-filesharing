@@ -7,6 +7,9 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module',
     "@nuxt/eslint"
   ],
+  routeRules: {
+    '/': { redirect: '/upload' }
+  },
   runtimeConfig: {
     s3Url: '',
     s3Bucket: '',
