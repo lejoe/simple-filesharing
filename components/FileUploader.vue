@@ -43,22 +43,23 @@ const uploadFile = async (newFiles) => {
 <template>
   <form
     @submit.prevent="shareFiles"
-    class="max-w-xl p-6 bg-stone-900 shadow-md mx-auto text-slate-200 relative rounded-lg"
+    class="max-w-xl px-8 py-10 bg-stone-900 shadow-md mx-auto text-slate-200 relative rounded-lg"
   >
-    <h1 class="text-lg mb-6 font-black">SIMPLE FILE SHARING</h1>
+    <h1 class="text-lg mb-8 font-black">SIMPLE FILE SHARING</h1>
 
     <FileDropZone
       :uploading="uploading"
       @onFilesDropped="uploadFile"
       @onFilesSelected="uploadFile"
+      class="w-full mb-8"
     />
 
-    <FileList :fileList="uploadedFiles" />
+    <FileList :fileList="uploadedFiles" class="w-full mb-8"/>
 
     <div class="w-full mt-3 gap-1 flex flex-col">
       <input
         type="submit"
-        class="bg-pink-700 hover:bg-pink-500 text-slate-100 hover:text-slate-100 font-bold py-2 px-4 rounded cursor-pointer disabled:opacity-50"
+        class="bg-pink-700 enabled:hover:bg-pink-500 text-slate-100 enabled:hover:text-slate-100 font-bold py-2 px-4 rounded cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
         :value="uploading ? 'Uploading ...' : 'Share files'"
         :disabled="uploading || uploadedFiles.length == 0"
       />
