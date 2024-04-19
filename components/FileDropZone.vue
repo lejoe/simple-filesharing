@@ -62,7 +62,7 @@ const handleDrop = (evt) => {
           <p class="pointer-events-none my-3">— Or —</p>
           <button
             class="border-slate-300 border hover:bg-stone-700 py-2 px-4 rounded cursor cursor-pointer disabled:opacity-50"
-            @click="openFileSelector"
+            @click.prevent="openFileSelector"
           >
             Select files
           </button>
