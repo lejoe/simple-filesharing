@@ -1,6 +1,6 @@
 # Simple Filesharing
 
-A simple filesharing tool based on postgres and s3 storage from Supabase
+A simple file sharing tool based on sqlite and s3 storage
 
 ## Setup
 
