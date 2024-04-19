@@ -18,6 +18,29 @@ A simple file sharing tool to [self-host](https://github.com/awesome-selfhosted/
 This is a playground for me to code some simple tool.
 For this personal tool I chose getting things done over high code quality.
 
+## Screencast
+
+![alt text](https://github.com/lejoe/simple-filesharing/raw/master/screencast.gif "Simple file sharing screencast")
+
+## FAQ
+
+<details>
+  <summary>Q: Why not Typescript?</summary>
+  In this prototyping phase I chose speed of developement at the expense not solving every edge cases.
+  Once the exploration of how to implement the feature with which tools is done, I plan to refactor the code to Typescript.
+</details>
+
+<details>
+  <summary>Q: Why Vue/Nuxt?</summary>
+  I just wanted to play around with a framework that looks apealing to me. 
+  I'm not pretending it's the best tool for the job. Some simple HTML/CSS with some fancy JS might do the trick too.
+</details>
+
+<details>
+  <summary>Q: Why Tailwind?</summary>
+  Also because I just wanted to play around with it…
+  Some crafted CSS would be cleaner but it's not a high priority for this personal tool.
+</details>
 
 ## Requirements
 
@@ -26,7 +49,6 @@ To configure it, copy the example .env.example file and fill the values
 ```bash
 cp .env.example .env
 ```
-
 
 ## Setup
 
@@ -57,23 +79,3 @@ Locally preview production build:
 ```bash
 npm run preview
 ```
-
-## FAQ
-
-<details>
-  <summary>Q: Why not Typescript?</summary>
-  In this prototyping phase I chose speed of developement at the expense not solving every edge cases.
-  Once the exploration of how to implement the feature with which tools is done, I plan to refactor the code to Typescript.
-</details>
-
-<details>
-  <summary>Q: Why Vue/Nuxt?</summary>
-  I just wanted to play around with a framework that looks apealing to me. 
-  I'm not pretending it's the best tool for the job. Some simple HTML/CSS with some fancy JS might do the trick too.
-</details>
-
-<details>
-  <summary>Q: Why Tailwind?</summary>
-  Also because I just wanted to play around with it…
-  Some crafted CSS would be cleaner but it's not a high priority for this personal tool.
-</details>
