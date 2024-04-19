@@ -20,7 +20,7 @@ For this personal tool I chose getting things done over high code quality.
 
 ## Screencast
 
-![alt text](https://github.com/lejoe/simple-filesharing/raw/master/screencast.gif "Simple file sharing screencast")
+![alt text](https://github.com/lejoe/simple-filesharing/raw/main/screencast.gif "Simple file sharing screencast")
 
 ## FAQ
 
