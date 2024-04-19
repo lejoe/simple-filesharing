@@ -1,6 +1,6 @@
 <script setup>
 const activeDrag = ref(false);
-const fileInputEl = ref(null)
+const fileInputEl = ref(null);
 const props = defineProps({
   uploading: {
     type: Boolean,
@@ -60,7 +60,12 @@ const handleDrop = (evt) => {
             {{ props.uploading ? "Uploading ..." : "Drag and drop" }}
           </p>
           <p class="pointer-events-none my-3">— Or —</p>
-          <button class="border-slate-300 border hover:bg-stone-700 py-2 px-4 rounded cursor cursor-pointer disabled:opacity-50" @click="openFileSelector">Select files</button>
+          <button
+            class="border-slate-300 border hover:bg-stone-700 py-2 px-4 rounded cursor cursor-pointer disabled:opacity-50"
+            @click="openFileSelector"
+          >
+            Select files
+          </button>
           <input
             id="dropzone-files"
             ref="fileInputEl"
@@ -68,7 +73,7 @@ const handleDrop = (evt) => {
             multiple
             class="hidden"
             @change="handleFilesSelected"
-          >
+          />
         </div>
       </label>
     </div>

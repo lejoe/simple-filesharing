@@ -42,14 +42,15 @@ function getUploadedFileDetails(uploadedFiles) {
         originalFilename,
         mimetype,
         size,
-      })
-    )
+      }),
+    ),
   );
 }
 
 export default defineEventHandler(async (event) => {
   const s3Uploads = [];
-  const { s3Url, s3AccessKey, s3SecretKey, s3Region, s3Bucket } = useRuntimeConfig(event)
+  const { s3Url, s3AccessKey, s3SecretKey, s3Region, s3Bucket } =
+    useRuntimeConfig(event);
   const s3Client = new S3Client({
     endpoint: s3Url,
     credentials: {
@@ -72,8 +73,8 @@ export default defineEventHandler(async (event) => {
     await Promise.all(s3Uploads);
 
     return {
-      uploadedFilesList: getUploadedFileDetails(uploadedFiles)
-    }
+      uploadedFilesList: getUploadedFileDetails(uploadedFiles),
+    };
   } catch (error) {
     throw createError({
       statusCode: 500,

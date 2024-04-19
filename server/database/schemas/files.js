@@ -14,6 +14,3 @@ export const files = sqliteTable("files", {
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),
 });
-
-export type FilesSelect = typeof files.$inferSelect;
-export type FilesInsert = typeof files.$inferInsert;

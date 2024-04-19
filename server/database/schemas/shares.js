@@ -7,6 +7,3 @@ export const shares = sqliteTable("shares", {
   status: text("status", { enum: ["active", "inactive"] }).default("active"),
   createdAt: text("timestamp").default(sql`CURRENT_TIMESTAMP`),
 });
-
-export type SharesSelect = typeof shares.$inferSelect;
-export type SharesInsert = typeof shares.$inferInsert;
